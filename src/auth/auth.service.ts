@@ -4,6 +4,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import { UpdateDto } from "./dto/update.dto";
 
 @Injectable()
 export class AuthService {
@@ -61,6 +62,29 @@ export class AuthService {
     //case: creditals (email and passwor) corect
     delete (await user).hashPassword;
     return this.signToken((await user).id, (await user).email);
+  }
+
+  async update(dto: UpdateDto, email: string) {
+    const password = await bcrypt.hash(dto.password, 10);
+    try {
+      //we find the current user
+      const user = await this.prisma.user.findUnique({ where: { email } });
+      //update user information
+      await this.prisma.user.update({
+        where: {
+          email,
+        },
+        data: {
+          email: dto.email || user.email,
+          hashPassword: password || user.hashPassword,
+          firstName: dto.firstname || user.firstName,
+          lastName: dto.lastname || user.lastName,
+        },
+      });
+    } catch (error) {
+      throw new ForbiddenException("Update failed");
+    }
+    return "update success";
   }
 
   async signToken(
