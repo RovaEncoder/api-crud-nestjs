@@ -1,25 +1,31 @@
-import { Body, Controller, Post, Put } from "@nestjs/common";
+import { Body, Controller, Post, HttpCode,HttpStatus, Put, UseGuards, Patch } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { AuthDto } from "./dto/auth.dto";
+import { AuthDto } from "./dto";
+import { GetCurrentUser } from "./decorator";
+import { JwtGuard } from "./guard";
 import { UpdateDto } from "./dto/update.dto";
-import { stringify } from "querystring";
 
-@Controller("auth")
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+@Controller('auth')
+export class AuthControleur{
+    constructor(private authService : AuthService, ){}
 
-  @Post("signup")
-  signup(@Body() dto: AuthDto) {
-    return this.authService.singnup(dto);
-  }
+    @HttpCode(HttpStatus.OK)
+    @Post('signin')
+    signin(@Body() dto: AuthDto) {
+        return this.authService.signin(dto)
+    }
 
-  @Post("signin")
-  signin(@Body() dto: AuthDto) {
-    return this.authService.singnin(dto);
-  }
+    @Post('signup')
+    signup(@Body() dto:AuthDto){
+        return this.authService.signup(dto)
+    }
 
-  @Put("update")
-  update(@Body() dto: UpdateDto, email: string) {
-    return this.authService.update(dto, email);
-  }
+    @UseGuards(JwtGuard)
+    @HttpCode(HttpStatus.ACCEPTED)
+    @Put('update')
+    update(@GetCurrentUser('email') email:string, @Body() dto: UpdateDto ){
+        return this.authService.update(dto, email)
+    }
+
 }
+

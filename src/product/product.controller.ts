@@ -4,11 +4,11 @@ import {
   UseGuards,
   Param,
   UseInterceptors,
-  CacheTTL,
 } from "@nestjs/common";
-import { JwtGuard } from "../auth/guard";
+
 import { ProductService } from "./product.service";
 import { CacheInterceptor } from "@nestjs/cache-manager";
+import { JwtGuard } from "src/auth/guard";
 
 @UseGuards(JwtGuard)
 @Controller("product")

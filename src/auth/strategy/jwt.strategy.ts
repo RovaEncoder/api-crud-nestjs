@@ -1,31 +1,48 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { PassportStrategy } from "@nestjs/passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import { PrismaService } from "../../prisma/prisma.service";
+import {
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { PassportStrategy } from '@nestjs/passport';
+import {
+  ExtractJwt,
+  Strategy,
+} from 'passport-jwt';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
-  constructor(config: ConfigService, private prisma: PrismaService) {
+export class JwtStrategy extends PassportStrategy(
+  Strategy,
+  'jwt',
+) {
+  constructor(
+    config: ConfigService,
+    private prisma: PrismaService,
+  ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.get("JWT_SECRET"),
+      jwtFromRequest:
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: config.get('JWT_SECRET'),
     });
   }
-  async validate(payload: { sub: number; email: string }) {
+  async validate(payload: {
+    sub: number;
+    email: string;
+  }) {
     try {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id: payload.sub,
-        },
-      });
+      const user =
+        await this.prisma.user.findUnique({
+          where: {
+            id: payload.sub,
+          },
+        });
 
       delete user.hashPassword;
       return user;
     } catch (error) {
       throw new ForbiddenException(
-        "Please make sure your are connect first",
-        "not connect"
+        'Please make sure your are connect first',
+        'not connect',
       );
     }
   }
