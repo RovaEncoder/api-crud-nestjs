@@ -22,7 +22,7 @@ AppModule = __decorate([
             cache_manager_1.CacheModule.register({
                 isGlobal: true,
                 store: cache_manager_redis_store_1.redisStore,
-                url: "redis://localhost:6379",
+                url: "redis://redis",
             }),
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             auth_module_1.AuthModule,

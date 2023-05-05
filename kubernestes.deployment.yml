@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-db
+spec:
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: nest-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-db
+  template:
+    metadata:
+      labels:
+        app: nest-db
+    spec:
+      containers:
+        - name: postgres
+          image: docker.io/postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: ${POSTGRES_USER}
+            - name: POSTGRES_PASSWORD
+              value: ${POSTGRES_PASSWORD}
+            - name: POSTGRES_DB
+              value: ${POSTGRES_DB}
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: nest-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: nest-db-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-api
+spec:
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: nest-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-api
+  template:
+    metadata:
+      labels:
+        app: nest-api
+    spec:
+      containers:
+        - name: nest-api
+          image: christrova/api-crud-nest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@nest-db:5432/${POSTGRES_DB}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+    - name: redis
+      port: 3001
+      targetPort: 6379
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: docker.io/redis:latest
+          ports:
+            - containerPort: 6379
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nest-api
+spec:
+  rules:
+    - host: nest-api.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nest-api
+                port:
+                  name: http

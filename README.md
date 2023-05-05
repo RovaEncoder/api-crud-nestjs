@@ -36,68 +36,93 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 - Docker
 - Redis
 - Insomnia
+- Kubernetes
 
-## We will see 2 ways to run our project:
-
-Make sure you have docker install in your cumputer -— if not clic [here](https://www.docker.com/products/docker-desktop/)
-
-## First one
+Make sure you have docker install in your cumputer — if not click [here](https://www.docker.com/products/docker-desktop/)
 
 ## Installation
 
 After clonning my project, in the root directory run :
 
-```bash
-$ npm install
-```
-
 <b> NB: put useful information in the .env file </b>
 
 ## Running the app
 
-- Run your database first :
-
-```bash
-$ npm run db:dev:restart
-```
-
 - Run the app :
 
 ```bash
-$ npm start
+$ npm run project:start
 ```
 
-Then open an tools for test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
+<h3 style="color:red">Warning ! : access the nest-api-crud container terminal </h3>
 
-### Registration via login/password (methode POST):
+### You can access the <b>nest-api-crud</b> container terminal by:
 
-Acces this url : http://localhost:3000/auth/signup
+- Using Docker CLI
 
-### authentication of a user via login / password (methode POST):
+```bash
+docker exec -it nest-api-crud sh
+```
 
-Acces this url : http://localhost:3000/auth/signin
+- Using Docker desktop:
 
-NB: this generate an acces token (so in the Headers put - Bearer accesstoken)
+Open Docker Desktop.
+Click on the container you want to access in the list of running containers.
+Click on the "Terminal" button in the container details page.
 
-### search for a product by its barcode on the OpenFoodFacts API (methode GET):
+### In the terminal run:
 
-Acces this url : http://localhost:3000/product/barcode
+```bash
+npx prisma migrate dev
+```
 
-### Update user (methode PUT):
+## Test the API
 
-Acces this url : http://localhost:3000/auth/update
+To test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
 
-## Second one
+### Registration via login/password (method POST):
 
-### You can simply acces to my docker image and run the project :
+Acces this url : http://localhost:3001/auth/signup
 
-(Docker image)[]
+### authentication of a user via login / password (method POST):
+
+Acces this url : http://localhost:3001/auth/signin
+
+NB: this generate an access token
+
+### search for a product by its barcode on the OpenFoodFacts API (method GET):
+
+NB: In the Headers put - Bearer <accesstoken>
+
+Access this url : http://localhost:3001/product/<barcode> (e.g: "http://localhost:3001/product/04963406")
+
+### Update user (method PUT):
+
+Acces this url : http://localhost:3001/auth/update
+
+Set in the form the data to update
+
+## Kubernetes manifest for deployment
+
+In the root directory run :
+
+```bash
+kubectl apply -f kubernestes.deployment.yml
+```
+
+You can see the deployment by running:
+
+```bash
+kubectl get deployments
+```
+
+Checking which pod(s) are running
+
+```bash
+kubectl get pods
+```
 
 ## Stay in touch
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
-
-```
-
-```

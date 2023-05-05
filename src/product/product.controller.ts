@@ -8,7 +8,7 @@ import {
 
 import { ProductService } from "./product.service";
 import { CacheInterceptor } from "@nestjs/cache-manager";
-import { JwtGuard } from "src/auth/guard";
+import { JwtGuard } from "../Auth/guard";
 
 @UseGuards(JwtGuard)
 @Controller("product")
