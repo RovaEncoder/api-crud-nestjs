@@ -8,7 +8,7 @@ import {
 
 import { ProductService } from "./product.service";
 import { CacheInterceptor } from "@nestjs/cache-manager";
-import { JwtGuard } from "../Auth/guard";
+import { JwtGuard } from "../auth/guard";
 
 @UseGuards(JwtGuard)
 @Controller("product")
@@ -18,6 +18,7 @@ export class ProductController {
   @Get(":productId")
   async getProduct(@Param("productId") productId: number) {
     const response = await this.productService.getProductById(productId);
+    console.log("not cached response");
     return response;
   }
 }

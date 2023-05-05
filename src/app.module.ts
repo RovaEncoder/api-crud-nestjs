@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import { AuthModule } from "./Auth/auth.module";
+import { AuthModule } from "./auth/auth.module";
 import { ProductModule } from "./product/product.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { ConfigModule } from "@nestjs/config";
