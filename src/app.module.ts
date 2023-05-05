@@ -13,7 +13,7 @@ import { RedisClientOptions } from "redis";
     CacheModule.register<RedisClientOptions>({
       isGlobal: true,
       store: redisStore as any,
-      url: "redis://redis",
+      url: "redis://localhost:6379",
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,

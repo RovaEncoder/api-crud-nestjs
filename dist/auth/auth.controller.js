@@ -12,49 +12,55 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.AuthControleur = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const auth_dto_1 = require("./dto/auth.dto");
+const dto_1 = require("./dto");
+const decorator_1 = require("./decorator");
+const guard_1 = require("./guard");
 const update_dto_1 = require("./dto/update.dto");
-let AuthController = class AuthController {
+let AuthControleur = class AuthControleur {
     constructor(authService) {
         this.authService = authService;
     }
-    signup(dto) {
-        return this.authService.singnup(dto);
-    }
     signin(dto) {
-        return this.authService.singnin(dto);
+        return this.authService.signin(dto);
     }
-    update(dto, email) {
+    signup(dto) {
+        return this.authService.signup(dto);
+    }
+    update(email, dto) {
         return this.authService.update(dto, email);
     }
 };
 __decorate([
-    (0, common_1.Post)("signup"),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.AuthDto]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "signup", null);
-__decorate([
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)("signin"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.AuthDto]),
+    __metadata("design:paramtypes", [dto_1.AuthDto]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "signin", null);
+], AuthControleur.prototype, "signin", null);
 __decorate([
-    (0, common_1.Put)("update"),
+    (0, common_1.Post)("signup"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_dto_1.UpdateDto, String]),
+    __metadata("design:paramtypes", [dto_1.AuthDto]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "update", null);
-AuthController = __decorate([
+], AuthControleur.prototype, "signup", null);
+__decorate([
+    (0, common_1.UseGuards)(guard_1.JwtGuard),
+    (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
+    (0, common_1.Put)("update"),
+    __param(0, (0, decorator_1.GetCurrentUser)("email")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_dto_1.UpdateDto]),
+    __metadata("design:returntype", void 0)
+], AuthControleur.prototype, "update", null);
+AuthControleur = __decorate([
     (0, common_1.Controller)("auth"),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
-], AuthController);
-exports.AuthController = AuthController;
+], AuthControleur);
+exports.AuthControleur = AuthControleur;
 //# sourceMappingURL=auth.controller.js.map

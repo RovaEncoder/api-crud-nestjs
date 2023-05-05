@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = require("bcrypt");
+const prisma_service_1 = require("../prisma/prisma.service");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 let AuthService = class AuthService {
@@ -21,7 +21,23 @@ let AuthService = class AuthService {
         this.jwt = jwt;
         this.config = config;
     }
-    async singnup(dto) {
+    async signin(dto) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: dto.email,
+            },
+        });
+        if (!user) {
+            throw new common_1.ForbiddenException("No account associated with this email address");
+        }
+        const pwdStatus = await bcrypt.compare(dto.password, (await user).hashPassword);
+        if (!pwdStatus) {
+            throw new common_1.ForbiddenException("Password incorrect");
+        }
+        delete (await user).hashPassword;
+        return this.signToken(user.id, user.email);
+    }
+    async signup(dto) {
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(dto.password, saltOrRounds);
         try {
@@ -40,26 +56,14 @@ let AuthService = class AuthService {
             }
         }
     }
-    async singnin(dto) {
-        const user = this.prisma.user.findUnique({
-            where: {
-                email: dto.email,
-            },
-        });
-        if (!user) {
-            throw new common_1.ForbiddenException("No account associated with this email address");
-        }
-        const pwdStatus = await bcrypt.compare(dto.password, (await user).hashPassword);
-        if (!pwdStatus) {
-            throw new common_1.ForbiddenException("Password incorrect");
-        }
-        delete (await user).hashPassword;
-        return this.signToken((await user).id, (await user).email);
-    }
     async update(dto, email) {
         const password = await bcrypt.hash(dto.password, 10);
         try {
-            const user = await this.prisma.user.findUnique({ where: { email } });
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    email,
+                },
+            });
             await this.prisma.user.update({
                 where: {
                     email,
@@ -73,9 +77,9 @@ let AuthService = class AuthService {
             });
         }
         catch (error) {
-            throw new common_1.ForbiddenException("Update failed");
+            throw new Error("Update failed");
         }
-        return "update success";
+        return "Update success";
     }
     async signToken(userId, email) {
         const secret = this.config.get("JWT_SECRET");
