@@ -37,11 +37,11 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 - Redis
 - Insomnia
 
-# We will see 2 ways to run our project:
+## We will see 2 ways to run our project:
 
 Make sure you have docker install in your cumputer -— if not clic [here](https://www.docker.com/products/docker-desktop/)
 
-# First one
+## First one
 
 ## Installation
 
@@ -59,12 +59,12 @@ $ npm install
 
 ````bash
 $ npm run db:dev:restart
-
+```
 - Run the app :
 
 ```bash
 $ npm start
-
+```
 Then open an tools for test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
 
 ### Registration via login/password (methode POST):
@@ -85,9 +85,9 @@ Acces this url : http://localhost:3000/product/barcode
 
 Acces this url : http://localhost:3000/auth/update
 
-# Second one
+## Second one
 
-## You can simply acces to my docker image and run the project :
+### You can simply acces to my docker image and run the project :
 
 (Docker image)[]
 
@@ -96,4 +96,5 @@ Acces this url : http://localhost:3000/auth/update
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
+
 ````
