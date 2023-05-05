@@ -19,7 +19,7 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 
 - Allow authentication of a user via login / password
 
-- on an authenticated route, allow the search for a product by its barcode on the OpenFoodFacts API
+- On an authenticated route, allow the search for a product by its barcode on the OpenFoodFacts API
 
 - Allow user update
 
@@ -31,11 +31,19 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 
 ## Tools I use :
 
-- Prisma as my ORM :
+- Prisma as my ORM
+- PostgresSQL
+- Docker
+- Redis
+- Insomnia
 
-## Installation
+# We will see 2 ways to run our project:
 
 Make sure you have docker install in your cumputer -— if not clic [here](https://www.docker.com/products/docker-desktop/)
+
+# First one
+
+## Installation
 
 After clonning my project, in the root directory run :
 
@@ -43,18 +51,13 @@ After clonning my project, in the root directory run :
 $ npm install
 ```
 
-Create an .env in root directory and past in the .env :
-
-````bash
-DATABASE_URL="postgresql://postgres:yourpassword@localhost:5434/databasename?schema=public"
-JWT_SECRET = "super-secret"
+<b> NB: put useful information in the .env file </b>
 
 ## Running the app
 
-- Run your database :
+- Run your database first :
 
-```bash
-# development
+````bash
 $ npm run db:dev:restart
 
 - Run the app :
@@ -72,7 +75,7 @@ Acces this url : http://localhost:3000/auth/signup
 
 Acces this url : http://localhost:3000/auth/signin
 
-NB: this generate an acces token (so in the Headers put - Bearer accesstoken  )
+NB: this generate an acces token (so in the Headers put - Bearer accesstoken)
 
 ### search for a product by its barcode on the OpenFoodFacts API (methode GET):
 
@@ -82,12 +85,11 @@ Acces this url : http://localhost:3000/product/barcode
 
 Acces this url : http://localhost:3000/auth/update
 
+# Second one
 
 ## You can simply acces to my docker image and run the project :
 
 (Docker image)[]
-
-
 
 
 ## Stay in touch
