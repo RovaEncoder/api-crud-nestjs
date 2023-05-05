@@ -57,14 +57,16 @@ $ npm install
 
 - Run your database first :
 
-````bash
+```bash
 $ npm run db:dev:restart
 ```
+
 - Run the app :
 
 ```bash
 $ npm start
 ```
+
 Then open an tools for test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
 
 ### Registration via login/password (methode POST):
@@ -81,7 +83,7 @@ NB: this generate an acces token (so in the Headers put - Bearer accesstoken)
 
 Acces this url : http://localhost:3000/product/barcode
 
-### Update user  (methode PUT):
+### Update user (methode PUT):
 
 Acces this url : http://localhost:3000/auth/update
 
@@ -91,10 +93,11 @@ Acces this url : http://localhost:3000/auth/update
 
 (Docker image)[]
 
-
 ## Stay in touch
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
 
-````
+```
+
+```
