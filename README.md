@@ -54,7 +54,7 @@ After clonning my project, in the root directory run :
 $ npm run project:start
 ```
 
-<h3 style="color:red">⚠Warning !!! : access the nest-api-crud container terminal </h3>
+<h3 style="color:red">⚠ Warning !!! : access the nest-api-crud container terminal </h3>
 
 ### You can access the <b>nest-api-crud</b> container terminal by:
 
@@ -83,23 +83,24 @@ To test the API (you can use (Postman)[https://www.postman.com/downloads/] or (I
 
 ### Registration via login/password (method POST):
 
-Acces this url : http://localhost:3001/auth/signup
+- Access this url : http://localhost:3001/auth/signup
 
-### authentication of a user via login / password (method POST):
+### Authentication of a user via login / password (method POST):
 
-Acces this url : http://localhost:3001/auth/signin
+- Access this url : http://localhost:3001/auth/signin
 
 NB: this generate an access token
 
-### search for a product by its barcode on the OpenFoodFacts API (method GET):
+### Search for a product by its barcode on the OpenFoodFacts API (method GET):
 
 NB: In the Headers put - Bearer <accesstoken>
 
-Access this url : http://localhost:3001/product/<barcode> (e.g: "http://localhost:3001/product/04963406")
+- Access this url : http://localhost:3001/product/{barcode}
+(e.g: "http://localhost:3001/product/04963406")
 
 ### Update user (method PUT):
 
-Acces this url : http://localhost:3001/auth/update
+- Access this url : http://localhost:3001/auth/update
 
 Set in the form the data to update
 
