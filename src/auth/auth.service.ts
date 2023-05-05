@@ -57,6 +57,8 @@ export class AuthService {
         data: {
           email: dto.email,
           hashPassword: hash,
+          firstName: dto.firstname,
+          lastName: dto.lastname,
         },
       });
       delete (await user).hashPassword;
@@ -89,8 +91,8 @@ export class AuthService {
           lastName: dto.lastname || user.lastName,
         },
       });
-    } catch (error) {
-      throw new Error("Update failed");
+    } catch {
+      throw new ForbiddenException("Update failed");
     }
 
     return "Update success";

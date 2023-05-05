@@ -31,41 +31,67 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 
 ## Tools I use :
 
--
+- Prisma as my ORM :
 
 ## Installation
+
+Make sure you have docker install in your cumputer -— if not clic [here](https://www.docker.com/products/docker-desktop/)
+
+After clonning my project, in the root directory run :
 
 ```bash
 $ npm install
 ```
 
+Create an .env in root directory and past in the .env :
+
+````bash
+DATABASE_URL="postgresql://postgres:yourpassword@localhost:5434/databasename?schema=public"
+JWT_SECRET = "super-secret"
+
 ## Running the app
+
+- Run your database :
 
 ```bash
 # development
-$ npm run start
+$ npm run db:dev:restart
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
+- Run the app :
 
 ```bash
-# unit tests
-$ npm run test
+$ npm start
 
-# e2e tests
-$ npm run test:e2e
+Then open an tools for test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
 
-# test coverage
-$ npm run test:cov
-```
+### Registration via login/password (methode POST):
+
+Acces this url : http://localhost:3000/auth/signup
+
+### authentication of a user via login / password (methode POST):
+
+Acces this url : http://localhost:3000/auth/signin
+
+NB: this generate an acces token (so in the Headers put - Bearer accesstoken  )
+
+### search for a product by its barcode on the OpenFoodFacts API (methode GET):
+
+Acces this url : http://localhost:3000/product/barcode
+
+### Update user  (methode PUT):
+
+Acces this url : http://localhost:3000/auth/update
+
+
+## You can simply acces to my docker image and run the project :
+
+(Docker image)[]
+
+
+
 
 ## Stay in touch
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
+````

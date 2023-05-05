@@ -13,8 +13,6 @@ COPY .env ./
 # COPY tsconfig.json file
 COPY tsconfig.json ./
 
-
-
 ENV NODE_ENV=dev
 
 COPY . .
@@ -24,7 +22,6 @@ RUN npm install
 RUN npx prisma generate
 
 EXPOSE 3001
-
 
 CMD [ "npm","start"]
 

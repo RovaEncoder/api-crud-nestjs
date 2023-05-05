@@ -45,6 +45,8 @@ let AuthService = class AuthService {
                 data: {
                     email: dto.email,
                     hashPassword: hash,
+                    firstName: dto.firstname,
+                    lastName: dto.lastname,
                 },
             });
             delete (await user).hashPassword;
@@ -76,8 +78,8 @@ let AuthService = class AuthService {
                 },
             });
         }
-        catch (error) {
-            throw new Error("Update failed");
+        catch (_a) {
+            throw new common_1.ForbiddenException("Update failed");
         }
         return "Update success";
     }

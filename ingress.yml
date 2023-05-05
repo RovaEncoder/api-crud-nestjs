@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: api-crud
   annotations:
-    ingress.kubernetes.io/ssl-redirect: 'false'
+    ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
     - http:

@@ -14,7 +14,7 @@ services:
   nest-api:
     build: .
     image: nest-api:v1
-    container_name: nest-api
+    container_name: nest-api-crud
     ports:
       - 3001:3000
     networks:
