@@ -54,7 +54,7 @@ After clonning my project, in the root directory run :
 $ npm run project:start
 ```
 
-<h3 style="color:red">Warning ! : access the nest-api-crud container terminal </h3>
+<h3 style="color:red">Warning !!! : access the nest-api-crud container terminal </h3>
 
 ### You can access the <b>nest-api-crud</b> container terminal by:
 
@@ -75,6 +75,7 @@ Click on the "Terminal" button in the container details page.
 ```bash
 npx prisma migrate dev
 ```
+This command will sync the database with the API
 
 ## Test the API
 
