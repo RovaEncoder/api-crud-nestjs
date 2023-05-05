@@ -93,7 +93,7 @@ NB: this generate an access token
 
 ### Search for a product by its barcode on the OpenFoodFacts API (method GET):
 
-NB: In the Headers put - Bearer <accesstoken>
+NB: In the Headers put - Bearer {accesstoken}
 
 - Access this url : http://localhost:3001/product/{barcode}
 (e.g: "http://localhost:3001/product/04963406")
