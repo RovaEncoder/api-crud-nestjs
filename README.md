@@ -37,12 +37,20 @@ The purpose of this test is to create a NestJS API to obtain information on barc
 - Redis
 - Insomnia
 - Kubernetes
+- NPM
 
-Make sure you have docker install in your cumputer — if not click [here](https://www.docker.com/products/docker-desktop/)
+Make sure you have install in your cumputer :
+
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [Node.js](https://nodejs.org/fr/download)
 
 ## Installation
 
 After clonning my project, in the root directory run :
+
+````
+npm install
+```
 
 <b> NB: put useful information in the .env file </b>
 
@@ -50,7 +58,7 @@ After clonning my project, in the root directory run :
 
 - Run the app :
 
-```bash
+```
 $ npm run project:start
 ```
 
@@ -58,36 +66,51 @@ $ npm run project:start
 
 ### You can access the <b>nest-api-crud</b> container terminal by:
 
-- Using Docker CLI
+### Using Docker CLI
 
-```bash
+```
 docker exec -it nest-api-crud sh
 ```
 
-- Using Docker desktop:
+### Using Docker desktop:
 
-Open Docker Desktop.
-Click on the container you want to access in the list of running containers.
-Click on the "Terminal" button in the container details page.
+-Open Docker Desktop.
+-Click on the container you want to access in the list of running containers.
+-Click on the "Terminal" button in the container details page.
 
 ### In the terminal run:
 
-```bash
+```
 npx prisma migrate dev
 ```
+
 This command will sync the database with the API
 
 ## Test the API
 
-To test the API (you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download])
+To test the API you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download]
+
+NB: all you have to do is connect to your database by entering your identifiers to check the data present in your database.
 
 ### Registration via login/password (method POST):
 
 - Access this url : http://localhost:3001/auth/signup
 
+| user register field | type   | required |
+| ------------------- | ------ | -------- |
+| email               | string | yes      |
+| password            | string | yes      |
+| firstname           | string | no       |
+| lastname            | string | no       |
+
 ### Authentication of a user via login / password (method POST):
 
 - Access this url : http://localhost:3001/auth/signin
+
+| user Authentication field | type   | required |
+| ------------------------- | ------ | -------- |
+| email                     | string | yes      |
+| password                  | string | yes      |
 
 NB: this generate an access token
 
@@ -96,7 +119,7 @@ NB: this generate an access token
 NB: In the Headers put - Bearer {accesstoken}
 
 - Access this url : http://localhost:3001/product/{barcode}
-(e.g: "http://localhost:3001/product/04963406")
+  (e.g: "http://localhost:3001/product/04963406")
 
 ### Update user (method PUT):
 
@@ -104,23 +127,32 @@ NB: In the Headers put - Bearer {accesstoken}
 
 Set in the form the data to update
 
+| user update field | type   | required |
+| ----------------- | ------ | -------- |
+| email             | string | no       |
+| password          | string | no       |
+| firstname         | string | no       |
+| lastname          | string | no       |
+
+
+
 ## Kubernetes manifest for deployment
 
 In the root directory run :
 
-```bash
+```
 kubectl apply -f kubernestes.deployment.yml
 ```
 
 You can see the deployment by running:
 
-```bash
+```
 kubectl get deployments
 ```
 
 Checking which pod(s) are running
 
-```bash
+```
 kubectl get pods
 ```
 
@@ -128,3 +160,4 @@ kubectl get pods
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
+````
