@@ -129,7 +129,7 @@ Set in the form the data to update
 
 | user update field | type   | required |
 | ----------------- | ------ | -------- |
-| email             | string | no       |
+| email             | string | yes      |
 | password          | string | no       |
 | firstname         | string | no       |
 | lastname          | string | no       |
@@ -158,7 +158,3 @@ kubectl get pods
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
-
-```
-
-```
