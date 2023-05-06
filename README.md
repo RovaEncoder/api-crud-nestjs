@@ -88,7 +88,7 @@ This command will sync the database with the API
 
 ## Test the API
 
-To test the API you can use (Postman)[https://www.postman.com/downloads/] or (Insomnia)[https://insomnia.rest/download]
+To test the API you can use [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download)
 
 NB: all you have to do is connect to your database by entering your identifiers to check the data present in your database.
 
