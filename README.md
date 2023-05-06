@@ -48,7 +48,7 @@ Make sure you have install in your cumputer :
 
 After clonning my project, in the root directory run :
 
-````
+```
 npm install
 ```
 
@@ -134,8 +134,6 @@ Set in the form the data to update
 | firstname         | string | no       |
 | lastname          | string | no       |
 
-
-
 ## Kubernetes manifest for deployment
 
 In the root directory run :
@@ -160,4 +158,7 @@ kubectl get pods
 
 - Author - [Christ Abessolo](https://rova.vercel.app/)
 - Portfolio - [https://rova.vercel.app/](https://rova.vercel.app/)
-````
+
+```
+
+```
